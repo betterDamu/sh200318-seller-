@@ -1,0 +1,23 @@
+{
+  "id": "1949655",
+  "name": "sh200318",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "5205031",
+      "name": "狗",
+      "font_class": "gou",
+      "unicode": "e60d",
+      "unicode_decimal": 58893
+    },
+    {
+      "icon_id": "5220054",
+      "name": "狗",
+      "font_class": "gou1",
+      "unicode": "e602",
+      "unicode_decimal": 58882
+    }
+  ]
+}
