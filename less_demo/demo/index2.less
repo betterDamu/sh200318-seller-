@@ -1,0 +1,16 @@
+//定义class
+.clearfix{
+  zoom: 1;
+  &:after{
+    content: "";
+    display: block;
+    clear: both;
+  }
+}
+
+#app{
+  &:extend(.clearfix);
+}
+#app2{
+  &:extend(.clearfix);
+}
