@@ -5,8 +5,7 @@ import store from "store/store.js"
 import axios from "http/http.js"
 import "@/mock"
 import "@/common/components"
-import "@/common/font.js"
-import "@/common/font.styl"
+import "@/common/stylus/font.styl"
 
 Vue.prototype.$axios = axios
 Vue.config.productionTip = false
