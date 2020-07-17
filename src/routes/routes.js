@@ -1,6 +1,6 @@
-import goods from "pages/goods.vue"
-import ratings from "pages/ratings.vue"
-import seller from "pages/seller.vue"
+import goods from "pages/goods/goods.vue"
+import ratings from "pages/ratings/ratings.vue"
+import seller from "pages/seller/seller.vue"
 export default [
     {path:"/goods",component:goods},
     {path:"/ratings",component:ratings},
