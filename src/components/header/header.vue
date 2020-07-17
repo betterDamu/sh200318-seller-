@@ -14,7 +14,7 @@
                     <span class="info">蜂鸟专送/38分钟送达</span>
                 </div>
                 <div class="supports">
-                    <i class="icon"></i>
+                    <seller-icon size="3" type="special"></seller-icon>
                     <span class="text">在线支付满25送店;满50送老板</span>
                 </div>
             </div>
@@ -76,13 +76,6 @@
                     line-height 12px
                     margin-top 10px
                     margin-bottom 2px
-                    .icon
-                        bg-image(decrease_1)
-                        background-repeat no-repeat
-                        background-size 100%
-                        display inline-block
-                        width 12px
-                        height 12px
                     .text
                         margin-left 4px
 
