@@ -1,8 +1,9 @@
 const path = require('path');
 const data = require("./src/mock/data")
 module.exports={
+    lintOnSave:false,
     devServer:{
-        before(app){
+        /*before(app){
             app.get('/api/seller', function(req, res) {
                 res.json({
                     code:200,
@@ -21,7 +22,7 @@ module.exports={
                     data:data.ratings
                 });
             });
-        }
+        }*/
     },
     configureWebpack:{
         resolve:{
