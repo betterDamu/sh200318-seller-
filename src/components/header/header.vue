@@ -2,73 +2,86 @@
     <div class="seller_header">
         <div class="top">
             <div class="top_left">
-                <img class="avatar"
-                     src="https://fuss10.elemecdn.com/8/40/02872ce8aefe75c16d3190e75ad61jpeg.jpeg">
+                <img class="avatar" :src="seller.avatar">
             </div>
             <div class="top_right">
                 <div class="title">
                     <i class="brand"></i>
-                    <span class="name">茄子哥(方舟园)</span>
+                    <span class="name">{{seller.name}}</span>
                 </div>
                 <div class="delivery">
-                    <span class="info">蜂鸟专送/38分钟送达</span>
+                    <span class="info">{{seller.description}}/{{seller.deliveryTime}}分钟送达</span>
                 </div>
-                <div class="supports">
-                    <seller-icon class="icon" size="3" type="special"></seller-icon>
-                    <span class="text">在线支付满25送店;满50送老板</span>
+                <div class="supports" v-if="seller.supports&&seller.supports[0]">
+                    <seller-icon class="icon" size="1"
+                                 :type="iconType"></seller-icon>
+                    <span class="text" >
+                        {{seller.supports[0].content}}
+                    </span>
                 </div>
             </div>
-            <div class="btns">
-                <span class="count">5个</span>
+            <div class="btns" @click="showMask=true">
+                <span class="count" v-if="seller.supports">
+                    {{seller.supports.length}}个
+                </span>
                 <i class="seller-keyboard_arrow_right arrow_right"></i>
             </div>
         </div>
-        <div class="bottom">
+        <div class="bottom" @click="showMask=true">
             <i class="icon"></i>
             <span class="text">
-                是以粥为特色的中式营养快餐，自2004年10月18日创立“嘉和一品”品牌至今，不断优化管理，积极创新，立足于“贴近百姓生活，服务千家万户”
+                {{seller.bulletin}}
             </span>
             <i class="seller-keyboard_arrow_right arrow_right"></i>
         </div>
         <div class="bg">
-            <img src="https://fuss10.elemecdn.com/8/40/02872ce8aefe75c16d3190e75ad61jpeg.jpeg">
+            <img :src="seller.bgImg">
         </div>
-        <div class="mask">
-            <div class="contentWrap">
-                <div class="content">
-                    <!--真正的遮罩内容-->
-                    <div class="title">
-                        <span>茄子哥(方舟园店)</span>
+        <transition name="mask">
+            <div class="mask" v-show="showMask">
+                <div class="contentWrap">
+                    <div class="content">
+                        <!--真正的遮罩内容-->
+                        <div class="title">
+                            <span>{{seller.name}}</span>
+                        </div>
+                        <div class="stars"></div>
+                        <seller-line class="line">
+                            <span>优惠信息</span>
+                        </seller-line>
+                        <seller-list :supports="seller.supports"></seller-list>
+                        <seller-line class="line">
+                            <span>商家公告</span>
+                        </seller-line>
+                        <p class="bulletin">
+                            {{seller.bulletin}}
+                        </p>
                     </div>
-                    <div class="stars"></div>
-                    <seller-line class="line">
-                        <span>优惠信息</span>
-                    </seller-line>
-                    <seller-list></seller-list>
-                    <seller-line class="line">
-                        <span>商家公告</span>
-                    </seller-line>
-                    <p class="bulletin">
-                        是以粥为特色的中式营养快餐，自2004年10月18日创立“嘉和一品”品牌至今，不断优化管理，积极创新，立足于“贴近百姓生活，服务千家万户”
-                        是以粥为特色的中式营养快餐，自2004年10月18日创立“嘉和一品”品牌至今，不断优化管理，积极创新，立足于“贴近百姓生活，服务千家万户”
-                        是以粥为特色的中式营养快餐，自2004年10月18日创立“嘉和一品”品牌至今，不断优化管理，积极创新，立足于“贴近百姓生活，服务千家万户”
-                        是以粥为特色的中式营养快餐，自2004年10月18日创立“嘉和一品”品牌至今，不断优化管理，积极创新，立足于“贴近百姓生活，服务千家万户”
-                        是以粥为特色的中式营养快餐，自2004年10月18日创立“嘉和一品”品牌至今，不断优化管理，积极创新，立足于“贴近百姓生活，服务千家万户”
-                        是以粥为特色的中式营养快餐，自2004年10月18日创立“嘉和一品”品牌至今，不断优化管理，积极创新，立足于“贴近百姓生活，服务千家万户”
-                    </p>
+                </div>
+                <div class="footer">
+                    <i class="seller-close close" @click="showMask=false"></i>
                 </div>
             </div>
-            <div class="footer">
-                <i class="seller-close close"></i>
-            </div>
-        </div>
+        </transition>
     </div>
 </template>
 
 <script>
+    import {mapState} from "vuex";
     import list from "components/list/list.vue"
     export default {
         name: "seller-header",
+        data(){
+          return {
+              showMask:false
+          }
+        },
+        computed:{
+            ...mapState(["seller","iconTypes"]),
+            iconType(){
+                return this.iconTypes[this.seller.supports[0].type]
+            }
+        },
         components:{
             "seller-list":list
         }
@@ -81,6 +94,7 @@
     .seller_header
         background rgba(7,17,27,.5)
         position relative
+        overflow hidden
         & > .top
             padding 24px 12px 18px 24px
             display flex
@@ -132,7 +146,7 @@
             .btns
                 position absolute
                 right 12px
-                bottom 12px
+                bottom 42px
                 width 45px
                 height 24px
                 background rgba(0,0,0,0.2)
@@ -188,7 +202,7 @@
             bottom  0
             background pink
             z-index -1
-            filter blur(10px)
+            filter blur(3px)
             img
                 width 100%
                 height 100%

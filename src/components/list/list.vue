@@ -1,31 +1,22 @@
 <template>
     <ul class="list">
-        <li>
-            <seller-icon class="icon" size="2" type="discount"></seller-icon>
-            <span>在线支付满28减5,满50送邱海峰</span>
-        </li>
-        <li>
-            <seller-icon size="2" type="decrease"></seller-icon>
-            <span>单人精彩赛</span>
-        </li>
-        <li>
-            <seller-icon size="2" type="guarantee"></seller-icon>
-            <span>海狗人参丸8折抢购</span>
-        </li>
-        <li>
-            <seller-icon size="2" type="invoice"></seller-icon>
-            <span>特价影评8折抢购</span>
-        </li>
-        <li>
-            <seller-icon size="2" type="special"></seller-icon>
-            <span>单人特色套餐</span>
+        <li v-for="(support,index) in supports" :key="index">
+            <seller-icon class="icon" size="2" :type="iconTypes[support.type]"></seller-icon>
+            <span>{{support.content}}</span>
         </li>
     </ul>
 </template>
 
 <script>
+    import {mapState} from "vuex"
     export default {
-        name: "list"
+        name: "list",
+        props:{
+            supports:Array
+        },
+        computed:{
+            ...mapState(["iconTypes"])
+        }
     }
 </script>
 

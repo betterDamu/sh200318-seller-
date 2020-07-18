@@ -17,19 +17,21 @@
 </template>
 
 <script>
-  import {mapState} from "vuex";
+  import {GETSELLER,GETSGOODS,GETRATINGS} from "store/mutation_types.js";
+  import {mapActions} from "vuex";
   import header from "components/header/header.vue";
   export default {
     name: 'App',
-    computed:{
-        ...mapState(["test"])
+    methods:{
+        ...mapActions([GETSELLER,GETSGOODS,GETRATINGS])
     },
     components:{
         "seller-header":header
     } ,
     async mounted(){
-        const seller = await this.$axios.get("/api/seller");
-        console.log(seller);
+        await this[GETSELLER]();
+        await this[GETSGOODS]();
+        await this[GETRATINGS]();
     }
   }
 </script>
