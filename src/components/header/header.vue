@@ -33,6 +33,17 @@
         <div class="bg">
             <img src="https://fuss10.elemecdn.com/8/40/02872ce8aefe75c16d3190e75ad61jpeg.jpeg">
         </div>
+        <div class="mask">
+            <div class="contentWrap">
+                <div class="content">
+                    <!--真正的遮罩内容-->
+
+                </div>
+            </div>
+            <div class="footer">
+                <i class="seller-close close"></i>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -158,4 +169,28 @@
             img
                 width 100%
                 height 100%
+        & > .mask
+            position fixed
+            left 0
+            right  0
+            top 0
+            bottom  0
+            margin auto
+            z-index 9
+            backdrop-filter blur(10px)
+            background rgba(7,17,27,.8)
+            overflow auto
+            .contentWrap
+                min-height 100%
+                .content
+                    padding-bottom 96px
+            .footer
+                margin-top -96px
+                width 100%
+                height 96px
+                line-height 96px
+                text-align center
+                .close
+                    color rgba(255,255,255,.5)
+                    font-size 32px
 </style>
