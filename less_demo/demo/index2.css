@@ -3,7 +3,9 @@
 #app2 {
   zoom: 1;
 }
-.clearfix:after {
+.clearfix:after,
+#app:after,
+#app2:after {
   content: "";
   display: block;
   clear: both;
