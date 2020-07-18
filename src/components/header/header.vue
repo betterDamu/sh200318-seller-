@@ -45,7 +45,10 @@
                         <div class="title">
                             <span>{{seller.name}}</span>
                         </div>
-                        <div class="stars"></div>
+                        <!--评星组件-->
+                        <div class="starsWrap">
+                            <seller-stars size="48" :score="seller.score"></seller-stars>
+                        </div>
                         <seller-line class="line">
                             <span>优惠信息</span>
                         </seller-line>
@@ -69,11 +72,12 @@
 <script>
     import {mapState} from "vuex";
     import list from "components/list/list.vue"
+    import stars from "components/stars/stars.vue"
     export default {
         name: "seller-header",
         data(){
           return {
-              showMask:false
+              showMask:true
           }
         },
         computed:{
@@ -83,7 +87,8 @@
             }
         },
         components:{
-            "seller-list":list
+            "seller-list":list,
+            "seller-stars":stars
         }
     }
 </script>
@@ -230,12 +235,12 @@
                         line-height 16px
                         color rgba(255,255,255,1)
                         font-weight 700
-                    .stars
-                        background pink
-                        height 24px
-                        width 100%
+                    .starsWrap
+                        width 80%
+                        margin 0 auto
                         margin-top 16px
                         margin-bottom 28px
+                        text-align center
                     .line
                         width 80%
                         margin 0 auto
