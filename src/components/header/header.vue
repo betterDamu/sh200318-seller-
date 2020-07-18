@@ -41,7 +41,7 @@
     .seller_header
         background rgba(7,17,27,.5)
         position relative
-        .top
+        & > .top
             padding 24px 12px 18px 24px
             display flex
             position relative
@@ -110,7 +110,7 @@
                     left 4px
                 .arrow_right
                     zoom 1
-        .bg
+        & > .bg
             position absolute
             left 0
             right  0
