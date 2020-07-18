@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Title</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        html,body{
+            width: 100%;
+            height: 100%;
+        }
+        #app{
+            width: 100%;
+            height: 100%;
+        }
+        .wrap{
+            min-height: 100%;
+        }
+        .content{
+            text-align: center;
+            padding-bottom: 30px;
+        }
+        .footer{
+            margin-top: -30px;
+            text-align: center;
+            width: 100%;
+            height: 30px;
+            background: pink;
+        }
+    </style>
+</head>
+<body>
+    <!--css sticky footer布局的要点:
+        1. 真正的内容一定的有一个包裹器
+        2. 真正的内容一定要预留一段下边距;用来抵消和footer的重叠
+        3. 包裹器的最小高度为视口的高宽 包裹一定要能被真正的内容区域撑开-->
+
+
+    <!--视口区域-->
+    <div id="app">
+        <div class="wrap" style="overflow: hidden">
+            <div class="content">
+                周冬雨离不开达姆了 <br> 周冬雨离不开达姆了 <br> 周冬雨离不开达姆了 <br>
+                周冬雨离不开达姆了 <br> 周冬雨离不开达姆了 <br> 周冬雨离不开达姆了 <br>
+                周冬雨离不开达姆了 <br> 周冬雨离不开达姆了 <br> 周冬雨离不开达姆了 <br>
+                周冬雨离不开达姆了 <br> 周冬雨离不开达姆了 <br> 周冬雨离不开达姆了 <br>
+                周冬雨离不开达姆了 <br> 周冬雨离不开达姆了 <br> 周冬雨离不开达姆了 <br>
+                周冬雨离不开达姆了 <br> 周冬雨离不开达姆了 <br> 周冬雨离不开达姆了 <br>
+                <!--周冬雨离不开达姆了 <br> 周冬雨离不开达姆了 <br> 周冬雨离不开达姆了 <br>
+                周冬雨离不开达姆了 <br> 周冬雨离不开达姆了 <br> 周冬雨离不开达姆了 <br>
+                周冬雨离不开达姆了 <br> 周冬雨离不开达姆了 <br> 周冬雨离不开达姆了 <br>
+                周冬雨离不开达姆了 <br> 周冬雨离不开达姆了 <br> 周冬雨离不开达姆了 <br>
+                周冬雨离不开达姆了 <br> 周冬雨离不开达姆了 <br> 周冬雨离不开达姆了 <br>
+                周冬雨离不开达姆了 <br> 周冬雨离不开达姆了 <br> 周冬雨离不开达姆了 <br>
+                周冬雨离不开达姆了 <br> 周冬雨离不开达姆了 <br> 周冬雨离不开达姆了 <br>
+                周冬雨离不开达姆了 <br> 周冬雨离不开达姆了 <br> 周冬雨离不开达姆了 <br>
+                周冬雨离不开达姆了 <br> 周冬雨离不开达姆了 <br> 周冬雨离不开达姆了 <br>
+                周冬雨离不开达姆了 <br> 周冬雨离不开达姆了 <br> 周冬雨离不开达姆了 <br>
+                周冬雨离不开达姆了 <br> 周冬雨离不开达姆了 <br> 周冬雨离不开达姆了 <br>
+                周冬雨离不开达姆了 <br> 周冬雨离不开达姆了 <br> 周冬雨离不开达姆了 <br>
+                周冬雨离不开达姆了 <br> 周冬雨离不开达姆了 <br> 周冬雨离不开达姆了 <br>-->
+            </div>
+        </div>
+        <div class="footer">
+            footer
+        </div>
+    </div>
+</body>
+</html>
