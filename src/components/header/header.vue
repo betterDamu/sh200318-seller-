@@ -44,9 +44,18 @@
                     <seller-line class="line">
                         <span>优惠信息</span>
                     </seller-line>
+                    <seller-list></seller-list>
                     <seller-line class="line">
                         <span>商家公告</span>
                     </seller-line>
+                    <p class="bulletin">
+                        是以粥为特色的中式营养快餐，自2004年10月18日创立“嘉和一品”品牌至今，不断优化管理，积极创新，立足于“贴近百姓生活，服务千家万户”
+                        是以粥为特色的中式营养快餐，自2004年10月18日创立“嘉和一品”品牌至今，不断优化管理，积极创新，立足于“贴近百姓生活，服务千家万户”
+                        是以粥为特色的中式营养快餐，自2004年10月18日创立“嘉和一品”品牌至今，不断优化管理，积极创新，立足于“贴近百姓生活，服务千家万户”
+                        是以粥为特色的中式营养快餐，自2004年10月18日创立“嘉和一品”品牌至今，不断优化管理，积极创新，立足于“贴近百姓生活，服务千家万户”
+                        是以粥为特色的中式营养快餐，自2004年10月18日创立“嘉和一品”品牌至今，不断优化管理，积极创新，立足于“贴近百姓生活，服务千家万户”
+                        是以粥为特色的中式营养快餐，自2004年10月18日创立“嘉和一品”品牌至今，不断优化管理，积极创新，立足于“贴近百姓生活，服务千家万户”
+                    </p>
                 </div>
             </div>
             <div class="footer">
@@ -57,8 +66,12 @@
 </template>
 
 <script>
+    import list from "components/list/list.vue"
     export default {
-        name: "seller-header"
+        name: "seller-header",
+        components:{
+            "seller-list":list
+        }
     }
 </script>
 
@@ -212,6 +225,15 @@
                     .line
                         width 80%
                         margin 0 auto
+                    .bulletin
+                        width 80%
+                        margin 0 auto
+                        margin-top 24px
+                        box-sizing border-box
+                        padding 0 12px
+                        color white
+                        font-size 12px
+                        line-height 24px
             .footer
                 margin-top -96px
                 width 100%
