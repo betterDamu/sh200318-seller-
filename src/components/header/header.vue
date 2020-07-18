@@ -37,7 +37,16 @@
             <div class="contentWrap">
                 <div class="content">
                     <!--真正的遮罩内容-->
-
+                    <div class="title">
+                        <span>茄子哥(方舟园店)</span>
+                    </div>
+                    <div class="stars"></div>
+                    <seller-line class="line">
+                        <span>优惠信息</span>
+                    </seller-line>
+                    <seller-line class="line">
+                        <span>商家公告</span>
+                    </seller-line>
                 </div>
             </div>
             <div class="footer">
@@ -55,6 +64,7 @@
 
 <style scoped lang="stylus">
     @import "../../common/stylus/mixin.styl"
+    @import "../../common/stylus/extend.styl"
     .seller_header
         background rgba(7,17,27,.5)
         position relative
@@ -181,9 +191,27 @@
             background rgba(7,17,27,.8)
             overflow auto
             .contentWrap
+                @extend .clearfix
                 min-height 100%
                 .content
+                    @extend .clearfix
                     padding-bottom 96px
+                    padding-top 64px
+                    .title
+                        text-align center
+                        font-size 16px
+                        line-height 16px
+                        color rgba(255,255,255,1)
+                        font-weight 700
+                    .stars
+                        background pink
+                        height 24px
+                        width 100%
+                        margin-top 16px
+                        margin-bottom 28px
+                    .line
+                        width 80%
+                        margin 0 auto
             .footer
                 margin-top -96px
                 width 100%
