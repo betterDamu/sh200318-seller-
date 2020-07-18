@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #app .item:nth-child(1){
+            color: red;
+        }
+
+        /*
+            nth-of-type以元素类型为中心
+            .item:nth-of-type(1)
+                span:nth-of-type(1)
+                i:nth-of-type(1)
+                strong:nth-of-type(1)
+                div:nth-of-type(1)
+        */
+
+       /*#app .item:nth-of-type(1){
+           color: red;
+       }*/
+    </style>
+</head>
+<body>
+    <div id="app">
+        <span class="item">1</span>
+        <i class="item">2</i>
+        <strong class="item">3</strong>
+        <div class="item">4</div>
+    </div>
+</body>
+</html>
