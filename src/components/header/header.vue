@@ -23,7 +23,13 @@
                 <i class="seller-keyboard_arrow_right arrow_right"></i>
             </div>
         </div>
-        <div class="bottom"></div>
+        <div class="bottom">
+            <i class="icon"></i>
+            <span class="text">
+                是以粥为特色的中式营养快餐，自2004年10月18日创立“嘉和一品”品牌至今，不断优化管理，积极创新，立足于“贴近百姓生活，服务千家万户”
+            </span>
+            <i class="seller-keyboard_arrow_right arrow_right"></i>
+        </div>
         <div class="bg">
             <img src="https://fuss10.elemecdn.com/8/40/02872ce8aefe75c16d3190e75ad61jpeg.jpeg">
         </div>
@@ -110,6 +116,36 @@
                     left 4px
                 .arrow_right
                     zoom 1
+        & > .bottom
+            box-sizing border-box
+            width 100%
+            height 28px
+            padding 0px 26px 0 12px
+            background rgba(7,17,27,.2)
+            overflow hidden
+            text-overflow ellipsis
+            white-space nowrap
+            color rgba(255,255,255,1)
+            line-height 28px
+            font-size 10px
+            font-weight 200
+            position relative
+            .icon
+                bg-image(bulletin)
+                background-size 100%
+                background-repeat no-repeat
+                display inline-block
+                width 22px
+                height 12px
+                margin-right 4px
+                position relative
+                top 1px
+            .text
+                zoom 1
+            .arrow_right
+                position absolute
+                right 12px
+                top 8px
         & > .bg
             position absolute
             left 0
