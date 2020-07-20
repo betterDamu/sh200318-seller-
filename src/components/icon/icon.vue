@@ -1,5 +1,5 @@
 <template>
-    <i class="icon" :class="[type,`icon-${size}`]"></i>
+    <i class="icon" :class="[iconTypes[type],`icon-${size}`]"></i>
 </template>
 
 <script>
@@ -7,7 +7,13 @@
         name: "seller_icon",
         props:{
             size:String,
-            type:String
+            type:Number
+        },
+        data(){
+            //让icon组件和vuex解耦
+            return {
+                iconTypes:["decrease","discount","guarantee","invoice","special"]
+            }
         }
     }
 </script>

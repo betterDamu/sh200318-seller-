@@ -29,9 +29,10 @@
         "seller-header":header
     } ,
     async mounted(){
-        await this[GETSELLER]();
-        await this[GETSGOODS]();
-        await this[GETRATINGS]();
+        //按顺序转发了3个actions
+        this[GETSELLER]();
+        this[GETSGOODS]();
+        this[GETRATINGS]();
     }
   }
 </script>
@@ -41,8 +42,7 @@
   #app
     width 100%
     height 100%
-    display flex
-    flex-direction column
+    position: relative
     .header
       zoom 1
     .navs
@@ -63,5 +63,10 @@
             color rgba(240,20,20,1)
 
     .router
-      flex 1
+        /*实现了在所有设备下 根据设备不一样 固定的高度也不一样*/
+        position absolute
+        left 0
+        right 0
+        top 174px
+        bottom 0
 </style>

@@ -3,6 +3,7 @@ import axios from "http/http";
 export default {
     //请求商家数据
     async [GETSELLER]({commit,state}){
+        //发起请求 当前请求会被mock拦截
         const {code,data} = await axios.get("/api/seller");
         if(code === state.OK){
             commit(GETSELLER,data)
