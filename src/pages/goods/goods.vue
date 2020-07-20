@@ -10,7 +10,18 @@
                     </li>
                 </ul>
             </div>
-            <div class="right"></div>
+            <div class="right" ref="right">
+                <ul class="classList">
+                    <li class="classItem" v-for="(good,index) in goods" :key="index">
+                        <h2 class="title">{{good.name}}</h2>
+                        <ul class="foodList">
+                            <li class="foodItem" v-for="(food,index) in good.foods" :key="index">
+                                <seller-food :food="food"></seller-food>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
         </div>
         <div class="cart"></div>
     </div>
@@ -19,6 +30,7 @@
 <script>
     import {mapState} from "vuex";
     import BScroll from 'better-scroll'
+    import food from "components/food/food"
     export default {
         name: "goods",
         computed:{
@@ -26,7 +38,11 @@
         },
         mounted(){
              //将滑屏的包裹器传入到BScroll内部就可以产生滑屏
-             new BScroll(this.$refs.left)
+             new BScroll(this.$refs.left);
+             new BScroll(this.$refs.right);
+        },
+        components:{
+            "seller-food":food
         }
     }
 </script>
@@ -67,7 +83,23 @@
                         zoom 1
         .right
             flex 1
-            background pink
+            .classList
+                .classItem
+                    .title
+                        height 26px
+                        padding-left 14px
+                        background #f3f5f7
+                        border-left 5px solid #d9dde1
+                        font-size 12px
+                        line-height 26px
+                        color rgba(147,153,159,1)
+                    .foodList
+                        zoom 1
+                        .foodItem
+                            overflow hidden
+                            one-px(rgba(7,17,27,.1))
+                            &:last-child
+                                border-none()
     .cart
         height 46px
         background gray
