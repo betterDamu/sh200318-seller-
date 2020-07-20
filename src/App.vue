@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <seller-header></seller-header>
+    <seller-header class="header"></seller-header>
     <div class="navs">
       <div class="nav">
         <router-link to="/goods">商品</router-link>
@@ -12,7 +12,7 @@
         <router-link to="/seller">商家</router-link>
       </div>
     </div>
-    <router-view></router-view>
+    <router-view class="router"></router-view>
   </div>
 </template>
 
@@ -39,6 +39,12 @@
 <style scoped lang="stylus">
   @import "./common/stylus/mixin.styl"
   #app
+    width 100%
+    height 100%
+    display flex
+    flex-direction column
+    .header
+      zoom 1
     .navs
       one-px(black)
       display flex
@@ -56,4 +62,6 @@
           &.active
             color rgba(240,20,20,1)
 
+    .router
+      flex 1
 </style>

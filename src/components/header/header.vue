@@ -77,11 +77,14 @@
         name: "seller-header",
         data(){
           return {
-              showMask:true
+              showMask:false
           }
         },
         computed:{
             ...mapState(["seller","iconTypes"]),
+           /* 什么时候使用计算属性:
+                1. 当需要在模板内进行大量运算的时候 最好使用计算属性
+                2. 当可以明显分析属于有依赖数据的存在时 最好使用计算属性*/
             iconType(){
                 return this.iconTypes[this.seller.supports[0].type]
             }

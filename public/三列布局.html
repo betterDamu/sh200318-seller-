@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Title</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        html,body{
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        #wrap{
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        #wrap .top{
+            width: 100%;
+            height: 100px;
+            background: pink;
+        }
+        #wrap .bottom{
+            width: 100%;
+            height: 100px;
+            background: pink;
+        }
+        #wrap .main{
+            flex: 1;
+            background: gray;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <div class="top"></div>
+        <div class="main"></div>
+        <div class="bottom"></div>
+    </div>
+</body>
+</html>

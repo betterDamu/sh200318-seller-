@@ -1,7 +1,7 @@
 <template>
     <ul class="list">
         <li v-for="(support,index) in supports" :key="index">
-            <seller-icon class="icon" size="2" :type="iconTypes[support.type]"></seller-icon>
+            <seller-icon class="icon" size="2" :type="iconType(support.type)"></seller-icon>
             <span>{{support.content}}</span>
         </li>
     </ul>
@@ -15,7 +15,16 @@
             supports:Array
         },
         computed:{
-            ...mapState(["iconTypes"])
+            ...mapState(["iconTypes"]),
+            iconType(){
+                //如果遇到计算属性传参的需求
+                // 那么我们计算属性对应的get方法需要返回一个函数
+                // 当前函数的第一个参数就是我们计算属性使用时传的参数
+                // 当前函数的返回值 就是计算属性渲染时运用的值
+                return function (type) {
+                    return this.iconTypes[type]
+                }
+            }
         }
     }
 </script>
