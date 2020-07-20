@@ -30,9 +30,9 @@
     } ,
     async mounted(){
         //按顺序转发了3个actions
-        this[GETSELLER]();
-        this[GETSGOODS]();
-        this[GETRATINGS]();
+        //转发一个action是要返回一个promise的  当前的promise的状态只有在整个vuex流程走完之后才会确定
+        await this[GETSELLER]();
+        await this[GETRATINGS]();
     }
   }
 </script>

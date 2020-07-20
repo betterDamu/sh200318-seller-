@@ -3,7 +3,7 @@
         <div class="goods">
             <div class="left" ref="left">
                 <ul class="typeList">
-                    <li class="typeItem" v-for="(good,index) in goods" :key="index">
+                    <li class="typeItem" :class="{active:currentIndex === index}" v-for="(good,index) in goods" :key="index">
                         <seller-icon class="icon" size="3"
                           v-show="good.type >= 0"  :type="good.type"></seller-icon>
                         <span class="name">{{good.name}}</span>
@@ -11,7 +11,7 @@
                 </ul>
             </div>
             <div class="right" ref="right">
-                <ul class="classList">
+                <ul class="classList" ref="classList">
                     <li class="classItem" v-for="(good,index) in goods" :key="index">
                         <h2 class="title">{{good.name}}</h2>
                         <ul class="foodList">
@@ -28,18 +28,68 @@
 </template>
 
 <script>
-    import {mapState} from "vuex";
+    import {GETSELLER,GETSGOODS,GETRATINGS} from "store/mutation_types.js";
+    import {mapState,mapActions} from "vuex";
     import BScroll from 'better-scroll'
     import food from "components/food/food"
     export default {
         name: "goods",
-        computed:{
-            ...mapState(["goods","iconTypes"])
+        data(){
+            return {
+                scrollY:0,//需要当前右侧列表滑动的实时距离 : scrollY
+                heightArr:[]//需要所有右侧分类项高度组成的一个累加数组 : heightArr
+            }
         },
-        mounted(){
-             //将滑屏的包裹器传入到BScroll内部就可以产生滑屏
-             new BScroll(this.$refs.left);
-             new BScroll(this.$refs.right);
+        computed:{
+            ...mapState(["goods","iconTypes"]),
+            //代表我们当前滑在哪一个列表上
+            currentIndex(){
+                //根据右侧的滑屏情况来决定当前应该返回怎样的下标
+                //需要当前右侧列表滑动的实时距离 : scrollY
+                //需要所有右侧分类项高度组成的一个累加数组 : heightArr
+                return 0
+            }
+        },
+        methods:{
+            ...mapActions([GETSGOODS])
+        },
+        //mounted代表挂载完成 但是挂载完成并不代表页面渲染成功
+        async mounted(){
+            await this[GETSGOODS]();
+            //将滑屏的包裹器传入到BScroll内部就可以产生滑屏
+            this.leftScroll = new BScroll(this.$refs.left);
+            //计算得到右侧滑屏元素移动的实时距离(正值)
+            this.rightScroll =new BScroll(this.$refs.right,{
+                probeType:3
+            });
+            this.rightScroll.on("scroll",({x, y})=>{
+                this.scrollY = Math.abs(y)
+            })
+
+            //计算得到所有分类列表高度累加的一个数组
+            //children会剔除所有的文本节点
+            //childNodes会包含文本节点
+
+            /*1. 有没有可能在当前代码被执行时  仓库中goods的数据还是空的?
+                    当前代码在执行时 我们请求goods这个接口还没有响应
+                    响应式更新还没起作用 这个时候去操作一个dom节点的相关api是肯定不安全的
+            2. 有没有可能在当前代码被执行时 仓库中goods的数据已经被填上了?
+                    哪怕当前代码在被执行时 数据已经回来了 可是mounted阶段
+                    只是来做挂载的 它并不能保证界面已经完成渲染
+                    这个时候去操作一个dom节点的相关api是有可能不安全的*/
+
+            /*vm.$nextTick(cb)
+                将cb延迟到下次 DOM 更新循环之后执行。
+                在修改数据之后立即使用它，然后等待 DOM 更新
+                在cb中的代码执行 上一次数据引起的dom更新百分百已经完成渲染了!!!
+            */
+
+            //确保当前的这个注册 在goods数据被修改之后再进行
+            this.$nextTick(()=>{
+                let rightLiNodes = this.$refs.classList.children;
+                console.log(rightLiNodes.length);
+            })
+
         },
         components:{
             "seller-food":food
@@ -73,6 +123,8 @@
                     line-height 14px
                     color rgba(0,0,0,.6)
                     font-weight bold
+                    &.active
+                        background pink
                     &:after
                         width 56px
                     &:last-child
