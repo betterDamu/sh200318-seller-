@@ -25,10 +25,19 @@
 
 
 ### vm.$nextTick
+    vm.$nextTick(()=>{
+        //这个回调会在上一次数据修改后 对应的界面渲染完毕之后被塞入到队列中
+    })
     vue中数据产生改变时;改变的数据对应的界面的更新不是实时的!
         当我们需要进行dom操作时; 我们一定要在改变的数据完成后
         注册nextTick 在nextTick的回调中在进行dom操作(这个时候的dom操作是百分百安全的)
 
+### 组件嵌套时;生命周期钩子如何调用
+    先调父组件的beforeCreate
+    先调父组件的created
+    先调父组件的beforeMount
+    再调子组件的beforeCreate created beforeMount mounted
+    最后调父组件的mounted
 
 ### goods布局
     三列布局 / 两列布局

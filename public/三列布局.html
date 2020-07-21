@@ -43,4 +43,16 @@
         <div class="bottom"></div>
     </div>
 </body>
+<script>
+    // app.create 钩子
+    (async ()=>{
+        await new Promise(()=>{})
+        console.log(1)
+    })();
+
+    // goods.mounted 钩子
+    (()=>{
+        console.log(2)
+    })()
+</script>
 </html>

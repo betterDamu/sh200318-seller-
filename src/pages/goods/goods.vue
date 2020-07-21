@@ -131,7 +131,10 @@
         },
         //mounted代表挂载完成 但是挂载完成并不代表页面渲染成功
         async mounted(){
-            await this[GETSGOODS]();
+            console.log("----")
+            //在路由组件中去转发action 发送请求 获取数据 修改仓库  整个过程的实时性是特别高的
+            //会照成大量的请求浪费
+            await this[GETSGOODS](); //当前这个await是必须的! 确保goods数据得到更新 再注册nextTick
             this.initScroll();
             this.initHeightArr();
         },

@@ -12,7 +12,9 @@
         <router-link to="/seller">商家</router-link>
       </div>
     </div>
-    <router-view class="router"></router-view>
+    <keep-alive>
+      <router-view class="router"></router-view>
+    </keep-alive>
   </div>
 </template>
 
@@ -28,10 +30,14 @@
     components:{
         "seller-header":header
     } ,
+    async created(){
+        // await this[GETSGOODS]();
+    } ,
     async mounted(){
         //按顺序转发了3个actions
         //转发一个action是要返回一个promise的  当前的promise的状态只有在整个vuex流程走完之后才会确定
         await this[GETSELLER]();
+        // await this[GETSGOODS]();
         await this[GETRATINGS]();
     }
   }
