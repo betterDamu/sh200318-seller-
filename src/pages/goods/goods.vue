@@ -24,7 +24,7 @@
                 </ul>
             </div>
         </div>
-        <seller-cart></seller-cart>
+        <seller-cart :selectedFoods="selectedFoods"></seller-cart>
     </div>
 </template>
 
@@ -66,6 +66,18 @@
 
                 //让对应的左侧分类项选中
                 return index
+            },
+            //购物车组件需要的数据(选中的商品数组)
+            selectedFoods(){
+                let arr = [];
+                this.goods.forEach((good)=>{
+                    good.foods.forEach((food)=>{
+                        if(food.count && food.count>0){
+                            arr.push(food)
+                        }
+                    })
+                })
+                return arr;
             }
         },
         methods:{
