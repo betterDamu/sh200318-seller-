@@ -24,7 +24,8 @@
                 </ul>
             </div>
         </div>
-        <seller-cart :selectedFoods="selectedFoods"></seller-cart>
+        <seller-cart @clear="clear"
+                :selectedFoods="selectedFoods"></seller-cart>
     </div>
 </template>
 
@@ -156,6 +157,15 @@
             remove(food){
                 if(food.count > 0)
                     food.count--
+            },
+            //清除购物车的方法
+            clear(){
+                this.goods.forEach((good)=>{
+                    good.foods.forEach((food)=>{
+                        if(food.count && food.count>0)
+                            food.count = 0
+                    })
+                })
             }
         },
         components:{

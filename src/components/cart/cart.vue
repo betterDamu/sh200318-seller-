@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="cart">
-            <div  class="left" style="color: white">
+            <div  class="left" style="color: white" @click="foldFn">
                 <div class="icon">
                     <div class="logo" :class="{active:totalCount>0}">
                         <i class="seller-shopping_cart"></i>
@@ -19,24 +19,26 @@
                 <span>{{rightText}}</span>
             </div>
         </div>
-        <div class="list">
+        <div class="list" v-show="showList">
             <div class="header">
                 <span class="cartText">购物车</span>
-                <span class="clear">清空</span>
+                <span class="clear" @click="clear">清空</span>
             </div>
             <div class="content">
                 <ul>
                     <li class="item" v-for="(selectedFood,index) in selectedFoods" :key="index">
-                        <span class="left"> xxx </span>
+                        <span class="left"> {{selectedFood.name}} </span>
                         <div class="right">
-                            <span class="price">1</span>
+                            <span v-show="selectedFood.count" class="price">
+                                ¥{{selectedFood.price * selectedFood.count}}
+                            </span>
                             <seller-control class="contorl" :food="selectedFood" ></seller-control>
                         </div>
                     </li>
                 </ul>
             </div>
         </div>
-        <div class="mask" v-show="false"></div>
+        <div class="mask" v-show="showList" @click="fold=true"></div>
     </div>
 </template>
 
@@ -47,6 +49,11 @@
         name: "cart",
         props:{
             selectedFoods:Array
+        },
+        data(){
+            return {
+                fold:true //控制list是否要折叠  true:需要折叠  false:不需要折叠
+            }
         },
         computed:{
             //商家相关的数据
@@ -72,6 +79,32 @@
                 }else if(this.totalPrice >= this.seller.minPrice){
                     return `去结算`
                 }
+            },
+            //控制list的折叠的计算属性
+            showList(){
+                //当totalcount 降为0时  list也应该折叠起来
+                if(this.totalCount <=0 ){
+                    //按照数据驱动的编程思想  fold和showList一定是反比关系
+                    this.fold = true
+                    return false
+                }
+
+                return !this.fold
+            }
+        },
+        methods:{
+            //购物车清空
+            clear(){
+                this.$emit("clear")
+            },
+            //购物车列表的折叠
+            foldFn(){
+                //看门狗  当总数量小于等于0的时候 我们点击购物车的左侧时
+                // 不应该让fold产生任何改变
+                if(this.totalCount<=0){
+                    return;
+                }
+                this.fold = !this.fold
             }
         },
         components:{
