@@ -19,14 +19,19 @@
                 <span class="old" v-show="food.oldPrice">¥{{food.oldPrice}}</span>
             </span>
         </div>
+        <seller-control class="control" :food="food"></seller-control>
     </div>
 </template>
 
 <script>
+    import control from "components/control/control"
     export default {
         name: "food",
         props:{
             food:Object
+        },
+        components:{
+            "seller-control":control
         }
     }
 </script>
@@ -35,6 +40,7 @@
     .food
         display flex
         margin 18px
+        position relative
         .left
             width 64px
             height 64px
@@ -76,4 +82,8 @@
                 .old
                     zoom 1
                     text-decoration line-through
+        .control
+            position absolute
+            right  0
+            bottom 0
 </style>

@@ -24,7 +24,7 @@
                 </ul>
             </div>
         </div>
-        <div class="cart"></div>
+        <seller-cart></seller-cart>
     </div>
 </template>
 
@@ -33,6 +33,7 @@
     import {mapState,mapActions} from "vuex";
     import BScroll from 'better-scroll'
     import food from "components/food/food"
+    import cart from "components/cart/cart"
     export default {
         name: "goods",
         data(){
@@ -76,7 +77,8 @@
                     this.leftScroll = new BScroll(this.$refs.left,{click:true});
                     //计算得到右侧滑屏元素移动的实时距离(正值)
                     this.rightScroll =new BScroll(this.$refs.right,{
-                        probeType:3
+                        probeType:3,
+                        click:true
                     });
                     this.rightScroll.on("scroll",({x, y})=>{
                         this.scrollY = Math.abs(y)
@@ -127,20 +129,39 @@
             //左侧列表同步右侧列表
             leftToRight(index){
                 this.rightScroll.scrollTo(0,-this.heightArr[index],300)
+            },
+            //购物车添加的方法
+            add(food){
+                //food中有可能是不存在count属性的
+                if(food.count > 0){
+                    food.count++
+                }else{
+                    //给仓库中派生出来的数据添加一个响应式属性count 代表当前food被购物车选中的数量
+                    this.$set(food,"count",1)
+                }
+            },
+            //购物车删减的方法
+            remove(food){
+                if(food.count > 0)
+                    food.count--
             }
+        },
+        components:{
+            "seller-food":food,
+            "seller-cart":cart
         },
         //mounted代表挂载完成 但是挂载完成并不代表页面渲染成功
         async mounted(){
-            console.log("----")
             //在路由组件中去转发action 发送请求 获取数据 修改仓库  整个过程的实时性是特别高的
             //会照成大量的请求浪费
             await this[GETSGOODS](); //当前这个await是必须的! 确保goods数据得到更新 再注册nextTick
             this.initScroll();
             this.initHeightArr();
+
+            //为购物车的加减 在总线上注册事件
+            this.$bus.$on("add",this.add);
+            this.$bus.$on("remove",this.remove);
         },
-        components:{
-            "seller-food":food
-        }
     }
 </script>
 
@@ -200,6 +221,5 @@
                             &:last-child
                                 border-none()
     .cart
-        height 46px
-        background gray
+        zoom 1
 </style>

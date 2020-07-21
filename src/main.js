@@ -30,7 +30,11 @@ import "@/common/components"
 import "@/common/stylus/font.styl"
 import "@/common/stylus/transition.styl"
 
+//总线
+Vue.prototype.$bus = new Vue()
+//请求对象
 Vue.prototype.$axios = axios
+//消除生产提示
 Vue.config.productionTip = false
 
 new Vue({
