@@ -1,6 +1,7 @@
 <template>
     <div class="stars">
         <div class="star" :class="[className,`star-${size}`]"
+             :style="{marginRight:mr+'px!important'}"
              v-for="(className,index) in classNames" :key="index"></div>
     </div>
 </template>
@@ -14,7 +15,8 @@
         name: "stars",
         props:{
             score:Number,
-            size:String
+            size:String,
+            mr:Number
         },
         computed:{
             //根据分数score要生成["ON","ON","ON","HALF","OFF"]

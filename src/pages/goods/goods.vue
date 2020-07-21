@@ -24,7 +24,7 @@
                 </ul>
             </div>
         </div>
-        <seller-cart @clear="clear"
+        <seller-cart @clear="clear" class="cartWrap"
                 :selectedFoods="selectedFoods"></seller-cart>
     </div>
 </template>
@@ -54,6 +54,7 @@
                 index = this.heightArr.findIndex((item,index,arr)=>{
                     return (this.scrollY >= item && this.scrollY < arr[index+1])
                 })
+
 
                 if(index !== this.oldIndex){
                     //以下两行代码 应该在index产生改变时在执行
@@ -242,6 +243,6 @@
                             one-px(rgba(7,17,27,.1))
                             &:last-child
                                 border-none()
-    .cart
-        zoom 1
+    .cartWrap
+        height 46px
 </style>

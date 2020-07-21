@@ -24,7 +24,7 @@
                 <span class="cartText">购物车</span>
                 <span class="clear" @click="clear">清空</span>
             </div>
-            <div class="content">
+            <div class="content" ref="content">
                 <ul>
                     <li class="item" v-for="(selectedFood,index) in selectedFoods" :key="index">
                         <span class="left"> {{selectedFood.name}} </span>
@@ -43,6 +43,7 @@
 </template>
 
 <script>
+    import BScroll from "better-scroll"
     import {mapState} from "vuex";
     import control from "components/control/control.vue"
     export default {
@@ -87,6 +88,14 @@
                     //按照数据驱动的编程思想  fold和showList一定是反比关系
                     this.fold = true
                     return false
+                }
+
+                //showList被重新執行！！  totalcount数据的改变已经完成
+                //当totalcount产生改变  购物车列表的高度会得到更新 整个滑屏也要重新计算
+                if(!this.contentScroll){
+                    this.contentScroll = new BScroll(this.$refs.content,{click:true})
+                }else {
+                    this.contentScroll.refresh()
                 }
 
                 return !this.fold
