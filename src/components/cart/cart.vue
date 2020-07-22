@@ -57,6 +57,7 @@
     import PubSub from 'pubsub-js'
     import BScroll from "better-scroll"
     import {mapState} from "vuex";
+    import {transform} from "@/util/util.js"
     import control from "components/control/control.vue"
     export default {
         name: "cart",
@@ -123,21 +124,62 @@
         },
         methods:{
             //小球动画相关的方法
-            drop(){
+            drop(name,ev){
                 // 找到第一个show为false的小球 让他变为true
+                //当前这个for循环是基于用户快速点击的需求
                 for(let i=0;i<this.balls.length;i++){
                     let ball = this.balls[i];
                     if(!ball.show){
                         //唤醒当前的小球  触发transition的机制
                         ball.show = true;
+                        //将对应+号按钮的dom节点绑定为ball的target属性
+                        ball.target = ev.target;
                         this.dropBalls.push(ball)
                         return;
                     }
                 }
             },
-            beforeDrop(el){console.log(el)},
-            dropping(el){console.log(el)},
-            afterDrop(el){console.log(el)},
+            //动画开始的钩子 将小球放到对应的+号按钮(ball.target)上
+            beforeDrop(el){
+                //el 就是当前要运动的小球
+                //最后一个show为true的小球  就是在drop中第一个show为fasle的小球
+                let count = this.balls.length;
+                while (count--){
+                    let ball = this.balls[count]
+                    if(ball.show){
+                        //ball:最后一个show为true的小球
+                        //不可以加nextTick 下述的代码相当于el的初始渲染
+                        //因为没有加nexttick 所有不能保证el在此处渲染成功!  所以就算不能让el参与
+                        let viewH = document.documentElement.clientHeight;
+                        var bottom = ball.target.getBoundingClientRect().bottom;
+                        let translateX = ball.target.getBoundingClientRect().left + 12 - 40;
+                        let translateY = viewH - bottom + 12 - 30;
+                        transform(el,"translateX",translateX)
+                        transform(el,"translateY",-translateY)
+                        return;
+                    }
+                }
+            },
+            dropping(el){
+                //浏览器为了能让offsetLeft拿到当前元素left偏移量的精确数据
+                //会在每一次访问元素offsetLeft的时候 强制刷新渲染队列
+                let hook = el.offsetLeft; //会等到el渲染完才执行下面的代码
+                //开始下落
+                this.$nextTick(()=>{
+                    //只能保证对应的小球显示了!!!! 不能保证他到达指定位置
+                    transform(el,"translateX",0)
+                    transform(el,"translateY",0)
+                })
+            },
+            afterDrop(el){
+                //执行到当前这个钩子代表一个小球的运动结束了 我们应该释放一个小球
+                //找到dropBalls中的第一个小球 把它从dropBalls中踢出去 并且要把它的show改为false
+                const ball = this.dropBalls.shift();
+                if(ball.show){
+                    ball.show = false ;
+                    el.style.display="none";//让隐藏变的更快
+                }
+            },
 
 
             //购物车清空
@@ -257,12 +299,12 @@
                 .ball
                     position absolute
                     left 32px
-                    top 5px
+                    bottom 23px
                     width 15px
                     height 15px
                     border-radius 50%
                     background deeppink
-                    transition 10s all linear
+                    transition .6s all linear
     .list
         max-height 255px
         position fixed

@@ -5,7 +5,7 @@
                class="seller-remove_circle_outline remove"></i>
         </transition>
         <span v-show="food.count">{{food.count}}</span>
-        <i class="seller-add_circle add" @click="add(food)"></i>
+        <i class="seller-add_circle add" @click="add(food,$event)"></i>
     </div>
 </template>
 
@@ -17,10 +17,10 @@
             food:Object
         },
         methods:{
-            add(food){
+            add(food,ev){
                 this.$bus.$emit("add",food);
                 //唤醒cart组件中的一个小球
-                PubSub.publish("ballAnimation")
+                PubSub.publish("ballAnimation",ev)
             },
             remove(food){
                 this.$bus.$emit("remove",food);
