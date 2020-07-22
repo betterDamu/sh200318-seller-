@@ -10,6 +10,7 @@
 </template>
 
 <script>
+    import PubSub from 'pubsub-js'
     export default {
         name: "control",
         props:{
@@ -17,7 +18,9 @@
         },
         methods:{
             add(food){
-                this.$bus.$emit("add",food)
+                this.$bus.$emit("add",food);
+                //唤醒cart组件中的一个小球
+                PubSub.publish("ballAnimation")
             },
             remove(food){
                 this.$bus.$emit("remove",food);

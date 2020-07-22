@@ -18,6 +18,17 @@
             <div class="right" :class="{active:totalPrice>=seller.minPrice}">
                 <span>{{rightText}}</span>
             </div>
+            <!--小球动画-->
+            <div class="balls">
+                <div class="ballWrap" v-for="(ball,index) in balls" :key="index">
+                    <transition
+                            @before-enter="beforeDrop"
+                            @enter="dropping"
+                            @after-enter="afterDrop">
+                        <i class="ball" v-show="ball.show"></i>
+                    </transition>
+                </div>
+            </div>
         </div>
         <div class="list" v-show="showList">
             <div class="header">
@@ -43,6 +54,7 @@
 </template>
 
 <script>
+    import PubSub from 'pubsub-js'
     import BScroll from "better-scroll"
     import {mapState} from "vuex";
     import control from "components/control/control.vue"
@@ -53,6 +65,14 @@
         },
         data(){
             return {
+                balls:[
+                    {show:false},
+                    {show:false},
+                    {show:false},
+                    {show:false},
+                    {show:false}
+                ], //小球数组
+                dropBalls:[],//存放正在下降的小球
                 fold:true //控制list是否要折叠  true:需要折叠  false:不需要折叠
             }
         },
@@ -102,6 +122,24 @@
             }
         },
         methods:{
+            //小球动画相关的方法
+            drop(){
+                // 找到第一个show为false的小球 让他变为true
+                for(let i=0;i<this.balls.length;i++){
+                    let ball = this.balls[i];
+                    if(!ball.show){
+                        //唤醒当前的小球  触发transition的机制
+                        ball.show = true;
+                        this.dropBalls.push(ball)
+                        return;
+                    }
+                }
+            },
+            beforeDrop(el){console.log(el)},
+            dropping(el){console.log(el)},
+            afterDrop(el){console.log(el)},
+
+
             //购物车清空
             clear(){
                 this.$emit("clear")
@@ -118,6 +156,10 @@
         },
         components:{
             "seller-control":control
+        },
+        mounted(){
+            //唤醒小球的订阅方法
+            PubSub.subscribe('ballAnimation', this.drop);
         }
     }
 </script>
@@ -210,6 +252,17 @@
                     color white
             span
                 color rgba(255,255,255,0.6)
+        .balls
+            .ballWrap
+                .ball
+                    position absolute
+                    left 32px
+                    top 5px
+                    width 15px
+                    height 15px
+                    border-radius 50%
+                    background deeppink
+                    transition 10s all linear
     .list
         max-height 255px
         position fixed
