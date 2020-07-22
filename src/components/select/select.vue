@@ -1,13 +1,13 @@
 <template>
     <div class="ratings-filter">
         <div class="rating-type border-1px">
-            <span class="block" :class="{active:ratingType===0}" @click="select('all')">
+            <span class="block" :class="{active:ratingType===2}" @click="select('all')">
                 全部<span class="count">{{ratings.length}}</span>
             </span>
-            <span class="block" :class="{active:ratingType===1}" @click="select('recommend')">
+            <span class="block" :class="{active:ratingType===0}" @click="select('recommend')">
                 推荐<span class="count">{{ratings.filter(rating=>rating.rateType===0).length}}</span>
             </span>
-            <span class="block" :class="{active:ratingType===2}"  @click="select('shit')">
+            <span class="block" :class="{active:ratingType===1}"  @click="select('shit')">
                 吐槽<span class="count">{{ratings.filter(rating=>rating.rateType===1).length}}</span>
             </span>
         </div>

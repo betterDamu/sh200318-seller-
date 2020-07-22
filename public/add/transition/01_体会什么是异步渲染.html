@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #wrap{
+            width: 400px;
+            height: 400px;
+            border: 1px solid;
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            margin: auto;
+        }
+        .inner{
+            width: 200px;
+            height: 200px;
+            background: pink;
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            margin: auto;
+            transition-property: width;
+            transition-duration: 3s;
+        }
+
+        #wrap:hover .inner{
+            transition-property: height;
+            width: 400px;
+            height: 400px;
+        }
+    </style>
+</head>
+<body>
+    <!--css代码的解析速度是极快的; 页面的渲染是比较慢的-->
+    <div id="wrap">
+        <div class="inner"></div>
+    </div>
+</body>
+</html>

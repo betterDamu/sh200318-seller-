@@ -37,7 +37,7 @@
 
             <div class="rating-wrapper">
                 <ul>
-                    <li class="rating-item" v-for="(rating,index) in ratings" :key="index">
+                    <li class="rating-item" v-for="(rating,index) in filterRatings" :key="index">
                         <div class="avatar">
                             <img width="28" height="28"
                                  :src="rating.avatar">
@@ -72,12 +72,13 @@
         name: "ratings",
         data(){
             return {
-                ratingType:0, //0:全部  1:推荐 2:吐槽
-                needText:false //needText: 代表是否需要内容
+                ratingType:2, //2:全部  0:推荐 1:吐槽
+                needText:false //needText: 代表是否需要内容 ; false代表不一定需要内容 true:一定要有内容
             }
         },
         computed:{
             ...mapState(["seller","ratings"]),
+            //控制显示好评手手 还是差评手手
             rateTypeClass(){
                 return function (type) {
                     //type : 0 好评
@@ -87,6 +88,18 @@
                     if(type === 1)
                         return 'seller-thumb_down'
                 }
+            },
+            //控制我们的列表渲染的个数
+            filterRatings(){
+                //依赖于ratings  ratingType  needText
+                return this.ratings.filter((rating)=>{
+                    //filter方法返回true 代表当前被循环这个元素要被放到filter返回数组中
+                    //体会一下短路或 || 的使用
+                    //如果ratingType为2 那我们就不需要去查看当前循环的每一个rating是什么类型的评论
+                    //如果needText为false 那我们就不需要去查看当前循环的每一个rating内容的长度
+                    return ((this.ratingType===2||rating.rateType===this.ratingType)
+                        && (!this.needText||rating.text.length>0))
+                })
             }
         },
         methods:{
@@ -94,11 +107,11 @@
             //确定按钮的点亮
             select(type){
                 if(type==="all")
-                    this.ratingType = 0
-                if(type==="recommend")
-                    this.ratingType = 1
-                if(type==="shit")
                     this.ratingType = 2
+                if(type==="recommend")
+                    this.ratingType = 0
+                if(type==="shit")
+                    this.ratingType = 1
             },
             //切换文本按钮
             switchFn(){
